@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Examist {
-    public struct Time {
+    public class Time {
         readonly int initialTime;
         int timeLeft;
 

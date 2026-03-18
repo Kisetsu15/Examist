@@ -1,20 +1,26 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Examist {
     public partial class TestPage : Form {
         
+        readonly Student student;
+
         bool canClose = false;
-        Time time;
+        readonly Time time;
         readonly Language language;
         
-        public TestPage(Time time, Timer timer, Language language) {
+        public TestPage(Student student, Time time, Timer timer, Language language) {
             InitializeComponent();
+            
             this.time = time;
             this.language = language;
+            this.student = student;
+            
             testPageTimer = timer;
+            studentName.Text = student.Name;
+            batchNumber.Text = student.BatchNumber;
 
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
@@ -47,7 +53,9 @@ namespace Examist {
         }
 
         void SubmitButton_Click(object sender, EventArgs e) {
-            CloseApplication($"Test Completed in {time.TimeSpentString}");
+            ResultPage resultPage = new ResultPage(student, time.TimeSpentString);
+            resultPage.Show();
+            Hide();
         }
 
         void VerifyButton_Click(object sender, EventArgs e)
@@ -69,9 +77,11 @@ namespace Examist {
             if (answer.Contains("boolean"))
             {
                 testPageTimer.Stop();
+                
                 verifyButton.Text = "Verified";
                 verifyButton.SetActive(false);
                 MessageBox.Show("No Errors Exists");
+                
                 proceedButton.SetActive(true);
             }
             else
@@ -112,7 +122,5 @@ namespace Examist {
             canClose = true;
             Application.Exit();
         }
-
-
     }
 }

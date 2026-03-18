@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Examist {
     public partial class SelectionPage : Form
     {
         private const int ONE_SECOND = 1000;
-        private Time time = new Time(timeInSeconds: 5);
+        private readonly Time time = new Time(timeInSeconds: 5);
         private bool canClose = false;
-
+        private readonly Student student;
 
         private Panel javaPanel;
         private Label JavaLabel;
@@ -16,13 +17,21 @@ namespace Examist {
         private Button pythonStartButton;
         private Button javaStartButton;
         private Timer selectionPageTimer;
-        private System.ComponentModel.IContainer components;
+        private IContainer components;
+        private Label studentName;
+        private Label batchNumber;
         private Label timerLabel;
 
-        public SelectionPage()
+        public SelectionPage(Student student)
         {
             InitializeComponent();
             selectionPageTimer.Interval = ONE_SECOND;
+            selectionPageTimer.Start();
+
+            this.student = student;
+
+            studentName.Text = student.Name;
+            batchNumber.Text = student.BatchNumber;
 
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
@@ -42,6 +51,8 @@ namespace Examist {
             this.pythonStartButton = new System.Windows.Forms.Button();
             this.selectionPageTimer = new System.Windows.Forms.Timer(this.components);
             this.timerLabel = new System.Windows.Forms.Label();
+            this.studentName = new System.Windows.Forms.Label();
+            this.batchNumber = new System.Windows.Forms.Label();
             this.javaPanel.SuspendLayout();
             this.pythonPanel.SuspendLayout();
             this.SuspendLayout();
@@ -70,12 +81,14 @@ namespace Examist {
             // 
             // javaStartButton
             // 
+            this.javaStartButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.javaStartButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.javaStartButton.Location = new System.Drawing.Point(494, 20);
             this.javaStartButton.Name = "javaStartButton";
             this.javaStartButton.Size = new System.Drawing.Size(103, 34);
             this.javaStartButton.TabIndex = 1;
             this.javaStartButton.Text = "Start";
-            this.javaStartButton.UseVisualStyleBackColor = true;
+            this.javaStartButton.UseVisualStyleBackColor = false;
             this.javaStartButton.Click += new System.EventHandler(this.JavaStartButton_Click);
             // 
             // pythonPanel
@@ -116,6 +129,7 @@ namespace Examist {
             // 
             // timerLabel
             // 
+            this.timerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.timerLabel.AutoSize = true;
             this.timerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timerLabel.Location = new System.Drawing.Point(827, 22);
@@ -124,9 +138,31 @@ namespace Examist {
             this.timerLabel.TabIndex = 4;
             this.timerLabel.Text = "⏲ 30:00";
             // 
+            // studentName
+            // 
+            this.studentName.AutoSize = true;
+            this.studentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.studentName.Location = new System.Drawing.Point(196, 33);
+            this.studentName.Name = "studentName";
+            this.studentName.Size = new System.Drawing.Size(178, 25);
+            this.studentName.TabIndex = 5;
+            this.studentName.Text = "<Student_Name>";
+            // 
+            // batchNumber
+            // 
+            this.batchNumber.AutoSize = true;
+            this.batchNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.batchNumber.Location = new System.Drawing.Point(12, 33);
+            this.batchNumber.Name = "batchNumber";
+            this.batchNumber.Size = new System.Drawing.Size(88, 25);
+            this.batchNumber.TabIndex = 6;
+            this.batchNumber.Text = "2612XX";
+            // 
             // SelectionPage
             // 
             this.ClientSize = new System.Drawing.Size(944, 501);
+            this.Controls.Add(this.batchNumber);
+            this.Controls.Add(this.studentName);
             this.Controls.Add(this.timerLabel);
             this.Controls.Add(this.pythonPanel);
             this.Controls.Add(this.javaPanel);
@@ -142,7 +178,7 @@ namespace Examist {
         }
         #endregion
 
-        private void SelectionPageTimer_Tick(object sender, System.EventArgs e)
+        private void SelectionPageTimer_Tick(object sender, EventArgs e)
         {
             time.TimeLeft--;
 
@@ -169,14 +205,14 @@ namespace Examist {
 
         private void JavaStartButton_Click(object sender, EventArgs e)
         {
-            TestPage testPage = new TestPage(time, selectionPageTimer, Language.Java);
+            TestPage testPage = new TestPage(student, time, selectionPageTimer, Language.Java);
             testPage.Show();
             Hide();
         }
 
         private void PythonStartButton_Click(object sender, EventArgs e)
         {
-            TestPage testPage = new TestPage(time, selectionPageTimer, Language.Python);
+            TestPage testPage = new TestPage(student, time, selectionPageTimer, Language.Python);
             testPage.Show();
             Hide();
         }
