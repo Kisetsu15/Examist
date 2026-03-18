@@ -1,19 +1,26 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Examist {
     public partial class TestPage : Form {
+        
+        readonly Student student;
+
         bool canClose = false;
-        Time time = new Time(timeInSeconds: 30);
-
-
-        public TestPage() {
+        readonly Time time;
+        readonly Language language;
+        
+        public TestPage(Student student, Time time, Timer timer, Language language) {
             InitializeComponent();
-
-            timer.Start();
-            timer.Interval = 1000;
+            
+            this.time = time;
+            this.language = language;
+            this.student = student;
+            
+            testPageTimer = timer;
+            studentName.Text = student.Name;
+            batchNumber.Text = student.BatchNumber;
 
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
@@ -21,19 +28,11 @@ namespace Examist {
         }
 
         private void TestPage_Load(object sender, EventArgs e) {
-            submitButton.Enabled = false;
-
+            proceedButton.Enabled = false;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e) {
             e.Cancel = !canClose;
-        }
-
-        void DisableTaskManager() {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(
-                @"Software\Microsoft\Windows\CurrentVersion\Policies\System");
-
-            key.SetValue("DisableTaskMgr", 1);
         }
 
         void KillPrograms() {
@@ -53,32 +52,64 @@ namespace Examist {
             }
         }
 
-        void EnableTaskManager() {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(
-                @"Software\Microsoft\Windows\CurrentVersion\Policies\System");
-
-            key.DeleteValue("DisableTaskMgr", false);
-        }
-
         void SubmitButton_Click(object sender, EventArgs e) {
-            CloseApplication($"Test Completed in {time.NowAsString}");
+            ResultPage resultPage = new ResultPage(student, time.TimeSpentString);
+            resultPage.Show();
+            Hide();
         }
 
-        void VerifyButton_Click(object sender, EventArgs e) {
+        void VerifyButton_Click(object sender, EventArgs e)
+        {
             string answer = codeBox.Text;
-
-            if (answer.Contains("boolean")) {
-                MessageBox.Show("No Errors Exists");
-                submitButton.SetActive(true);
-            } else {
-                MessageBox.Show("Error Exists");
+            switch (language)
+            {
+                case Language.Java:
+                    HandleJava(answer);
+                    return;
+                case Language.Python:
+                    HandlePython(answer);
+                    return;
             }
         }
 
-        void Timer_Tick(object sender, EventArgs e) {
-            time.Now--;
+        private void HandleJava(string answer)
+        {
+            if (answer.Contains("boolean"))
+            {
+                testPageTimer.Stop();
+                
+                verifyButton.Text = "Verified";
+                verifyButton.SetActive(false);
+                MessageBox.Show("No Errors Exists");
+                
+                proceedButton.SetActive(true);
+            }
+            else
+            {
+                MessageBox.Show("Error Exists");
+            }
+        }    
+        
+        private void HandlePython(string answer)
+        {
+            if (answer.Contains("boolean"))
+            {
+                testPageTimer.Stop();
+                verifyButton.Text = "Verified";
+                verifyButton.SetActive(false);
+                MessageBox.Show("No Errors Exists");
+                proceedButton.SetActive(true);
+            }
+            else
+            {
+                MessageBox.Show("Error Exists");
+            }
+        }    
 
-            timerLabel.Text = $"⏲️:{time.NowAsString}";
+        void TestPageTimer_Tick(object sender, EventArgs e) {
+            time.TimeLeft--;
+
+            timerLabel.Text = $"⏲️:{time.TimeLeftString}";
 
             if (time.IsEnded) {
                 CloseApplication("Test Time Over!");
@@ -86,12 +117,10 @@ namespace Examist {
         }
 
         void CloseApplication(string message) {
-            timer.Stop();
+            testPageTimer.Stop();
             MessageBox.Show(message);
             canClose = true;
             Application.Exit();
         }
-
-
     }
 }
