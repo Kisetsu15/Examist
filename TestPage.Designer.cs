@@ -28,7 +28,7 @@
             this.codeBox = new System.Windows.Forms.TextBox();
             this.QuestionLabel = new System.Windows.Forms.Label();
             this.verifyButton = new System.Windows.Forms.Button();
-            this.testPageTimer = new System.Windows.Forms.Timer(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.timerLabel = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
             this.studentName = new System.Windows.Forms.Label();
@@ -83,8 +83,8 @@
             // 
             // testPageTimer
             // 
-            this.testPageTimer.Interval = 1000;
-            this.testPageTimer.Tick += new System.EventHandler(this.TestPageTimer_Tick);
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.TestPageTimer_Tick);
             // 
             // timerLabel
             // 
@@ -155,7 +155,7 @@
         private System.Windows.Forms.TextBox codeBox;
         private System.Windows.Forms.Label QuestionLabel;
         private System.Windows.Forms.Button verifyButton;
-        private System.Windows.Forms.Timer testPageTimer;
+        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label timerLabel;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Label studentName;

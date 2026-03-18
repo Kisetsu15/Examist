@@ -2,8 +2,12 @@
 
 namespace Examist {
     public static class Extensions {
-        public static void SetActive(this Control control, bool active) {
-            control.Enabled = active;
+        public static void Enable(this Control control) {
+            control.Enabled = true;
+        }
+
+        public static void Disable(this Control control) {
+            control.Enabled = false;
         }
 
         public static string PadZero(this object text, int width = 2) {

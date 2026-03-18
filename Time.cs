@@ -22,13 +22,11 @@ namespace Examist {
         public string TimeSpentString => $"{Minutes(TimeSpent).PadZero()}:{Seconds(TimeSpent).PadZero()}";
 
 
-        public int Minutes(int time)
-        {
+        public int Minutes(int time) {
             return time / 60;
         }
 
-        public int Seconds(int time)
-        {
+        public int Seconds(int time) {
             return time % 60;
         }
     }

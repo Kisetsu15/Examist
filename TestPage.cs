@@ -4,27 +4,27 @@ using System.Windows.Forms;
 
 namespace Examist {
     public partial class TestPage : Form {
-        
-        readonly Student student;
 
-        bool canClose = false;
-        readonly Time time;
-        readonly Language language;
-        
-        public TestPage(Student student, Time time, Timer timer, Language language) {
+        private readonly Student student;
+        private readonly ILanguage language;
+        private readonly Time time;
+
+        private bool canClose = false;
+
+        public TestPage(Student student, Time time, Timer timer, ILanguage lang) {
             InitializeComponent();
-            
+
             this.time = time;
-            this.language = language;
             this.student = student;
-            
-            testPageTimer = timer;
+
+            this.timer = timer;
             studentName.Text = student.Name;
             batchNumber.Text = student.BatchNumber;
 
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
             TopMost = true;
+            this.language = lang;
         }
 
         private void TestPage_Load(object sender, EventArgs e) {
@@ -53,63 +53,25 @@ namespace Examist {
         }
 
         void SubmitButton_Click(object sender, EventArgs e) {
-            ResultPage resultPage = new ResultPage(student, time.TimeSpentString);
+            var resultPage = new ResultPage(student, time.TimeSpentString);
             resultPage.Show();
             Hide();
         }
 
-        void VerifyButton_Click(object sender, EventArgs e)
-        {
+        void VerifyButton_Click(object sender, EventArgs e) {
             string answer = codeBox.Text;
-            switch (language)
-            {
-                case Language.Java:
-                    HandleJava(answer);
-                    return;
-                case Language.Python:
-                    HandlePython(answer);
-                    return;
+            if (language.Verify(answer)) {
+                timer.Stop();
+                MessageBox.Show("Passed");
+            } else {
+                MessageBox.Show("Error Exists");
             }
         }
-
-        private void HandleJava(string answer)
-        {
-            if (answer.Contains("boolean"))
-            {
-                testPageTimer.Stop();
-                
-                verifyButton.Text = "Verified";
-                verifyButton.SetActive(false);
-                MessageBox.Show("No Errors Exists");
-                
-                proceedButton.SetActive(true);
-            }
-            else
-            {
-                MessageBox.Show("Error Exists");
-            }
-        }    
-        
-        private void HandlePython(string answer)
-        {
-            if (answer.Contains("boolean"))
-            {
-                testPageTimer.Stop();
-                verifyButton.Text = "Verified";
-                verifyButton.SetActive(false);
-                MessageBox.Show("No Errors Exists");
-                proceedButton.SetActive(true);
-            }
-            else
-            {
-                MessageBox.Show("Error Exists");
-            }
-        }    
 
         void TestPageTimer_Tick(object sender, EventArgs e) {
             time.TimeLeft--;
 
-            timerLabel.Text = $"⏲️:{time.TimeLeftString}";
+            timerLabel.Text = $"{time.TimeLeftString}";
 
             if (time.IsEnded) {
                 CloseApplication("Test Time Over!");
@@ -117,7 +79,7 @@ namespace Examist {
         }
 
         void CloseApplication(string message) {
-            testPageTimer.Stop();
+            timer.Stop();
             MessageBox.Show(message);
             canClose = true;
             Application.Exit();
