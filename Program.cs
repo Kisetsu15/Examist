@@ -10,7 +10,7 @@ namespace Examist {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestPage());
+            Application.Run(new SelectionPage());
         }
     }
 }
