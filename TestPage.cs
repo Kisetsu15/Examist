@@ -4,25 +4,6 @@ using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Examist {
-    struct Time {
-        int now;
-
-        public int Now {
-            get => now;
-            set => now = Math.Max(value, 0);
-        }
-
-        int Minutes => Now / 60;
-        int Seconds => Now % 60;
-
-        public Time(int timeInSeconds) {
-            now = timeInSeconds;
-        }
-
-        public bool IsEnded => Now <= 0;
-        public string NowAsString => $"{Minutes.PadZero()}:{Seconds.PadZero()}";
-    }
-
     public partial class TestPage : Form {
         bool canClose = false;
         Time time = new Time(timeInSeconds: 30);
@@ -112,15 +93,5 @@ namespace Examist {
         }
 
 
-    }
-
-    public static class Extensions {
-        public static void SetActive(this Control control, bool active) {
-            control.Enabled = active;
-        }
-
-        public static string PadZero(this object text, int width = 2) {
-            return text.ToString().PadLeft(width, '0');
-        }
     }
 }
