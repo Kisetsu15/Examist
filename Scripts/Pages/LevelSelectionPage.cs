@@ -34,7 +34,16 @@ namespace Examist {
                 levelOneStartButton.Disable();
                 levelTwoStartButton.Enable();
                 levelTwoStartButton.Text = "Start";
+            } else {
+                levelOneStartButton.Enable();
+                levelOneStartButton.Text = "Start";
+                levelTwoStartButton.Disable();
+                levelTwoStartButton.Text = "Locked";
             }
+
+            WindowState = FormWindowState.Maximized;
+            FormBorderStyle = FormBorderStyle.None;
+            TopMost = true;
         }
 
         #region Generated
@@ -157,9 +166,9 @@ namespace Examist {
             this.studentName.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.studentName.Location = new System.Drawing.Point(106, 13);
             this.studentName.Name = "studentName";
-            this.studentName.Size = new System.Drawing.Size(162, 26);
+            this.studentName.Size = new System.Drawing.Size(137, 26);
             this.studentName.TabIndex = 5;
-            this.studentName.Text = "<Student_Name>";
+            this.studentName.Text = "Student Name";
             // 
             // batchNumber
             // 
@@ -232,16 +241,14 @@ namespace Examist {
         #endregion
 
         private void LevelOneStartButton_Click(object sender, EventArgs e) {
-            var page = new ProgramSelectionPage(student, new LevelOne());
-            page.Show();
-            Hide();
+            var nextPage = new ProgramSelectionPage(student, new LevelOne());
+            this.SwitchForm(nextPage);
         }
 
         private void LevelTwoStartButton_Click(object sender, EventArgs e) {
             if (levelTwoUnlocked) {
-                var page = new ProgramSelectionPage(student, new LevelTwo());
-                page.Show();
-                Hide();
+                var nextPage = new ProgramSelectionPage(student, new LevelTwo());
+                this.SwitchForm(nextPage);
             }
         }
     }

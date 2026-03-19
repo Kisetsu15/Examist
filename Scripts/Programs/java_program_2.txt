@@ -1,0 +1,8 @@
+public class Main {
+    public static void main(String[] args) {
+        boolean passed = true
+        if (passed) {
+            System.out.println("Candidate cleared level two");
+        }
+    }
+}

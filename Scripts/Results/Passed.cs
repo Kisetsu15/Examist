@@ -14,9 +14,8 @@ namespace Examist {
         }
 
         public void Execute(Form current) {
-            var nextPage = new LevelSelectionPage(Student);
-            nextPage.Show();
-            current.Hide();
+            var nextPage = new LevelSelectionPage(Student, levelTwoUnlocked: true);
+            current.SwitchForm(nextPage);
         }
     }
 }

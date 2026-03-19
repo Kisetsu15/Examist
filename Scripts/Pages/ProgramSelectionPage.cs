@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -6,7 +6,6 @@ namespace Examist {
     public partial class ProgramSelectionPage : Form {
         private const int ONE_SECOND = 1000;
         private readonly Time time = new Time(timeInSeconds: 30);
-        private bool canClose = false;
         private readonly Student student;
         private readonly ILevel level;
 
@@ -28,11 +27,13 @@ namespace Examist {
 
         public ProgramSelectionPage(Student student, ILevel level) {
             InitializeComponent();
-            timer.Interval = ONE_SECOND;
-            timer.Start();
 
             this.student = student;
             this.level = level;
+
+            timer.Interval = ONE_SECOND;
+            timerLabel.Text = time.TimeLeftString;
+            timer.Start();
 
             studentName.Text = student.Name;
             batchNumber.Text = student.BatchNumber;
@@ -156,7 +157,7 @@ namespace Examist {
             this.copyRightLabel.Name = "copyRightLabel";
             this.copyRightLabel.Size = new System.Drawing.Size(174, 16);
             this.copyRightLabel.TabIndex = 0;
-            this.copyRightLabel.Text = "Copyright © 2026 Dharshik S";
+            this.copyRightLabel.Text = "Copyright � 2026 Dharshik S";
             // 
             // batchNumber
             // 
@@ -215,7 +216,7 @@ namespace Examist {
             this.Controls.Add(this.pythonPanel);
             this.Controls.Add(this.javaPanel);
             this.Name = "ProgramSelectionPage";
-            this.Text = "Selection Page";
+            this.Text = "Eaxmist";
             this.javaPanel.ResumeLayout(false);
             this.javaPanel.PerformLayout();
             this.pythonPanel.ResumeLayout(false);
@@ -229,37 +230,47 @@ namespace Examist {
         }
         #endregion
 
+        public void PauseTimer() {
+            timer.Stop();
+        }
+
+        public void ResumeTimer() {
+            if (time.IsEnded) {
+                return;
+            }
+
+            timerLabel.Text = time.TimeLeftString;
+            timer.Start();
+        }
+
         private void SelectionPageTimer_Tick(object sender, EventArgs e) {
             time.TimeLeft--;
 
-            timerLabel.Text = $"{time.TimeLeftString}";
+            timerLabel.Text = time.TimeLeftString;
 
             if (time.IsEnded) {
-                CloseApplication("Test Time Over!");
+                timer.Stop();
+                var resultPage = new ResultPage(new Failed(student));
+                this.SwitchForm(resultPage);
             }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e) {
-            e.Cancel = !canClose;
-        }
-
-        void CloseApplication(string message) {
-            timer.Stop();
-            MessageBox.Show(message);
-            canClose = true;
-            Application.Exit();
+            e.Cancel = false;
         }
 
         private void JavaStartButton_Click(object sender, EventArgs e) {
-            var testPage = new TestPage(student, time, timer, level.GetJava());
-            testPage.Show();
-            Hide();
+            OpenTestPage(level.GetJava());
         }
 
         private void PythonStartButton_Click(object sender, EventArgs e) {
-            var testPage = new TestPage(student, time, timer, level.GetPython());
-            testPage.Show();
-            Hide();
+            OpenTestPage(level.GetPython());
+        }
+
+        private void OpenTestPage(ILanguage language) {
+            PauseTimer();
+            var testPage = new TestPage(student, time, language, this);
+            this.SwitchForm(testPage);
         }
     }
 }

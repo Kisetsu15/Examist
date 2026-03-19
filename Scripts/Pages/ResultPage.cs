@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace Examist {
     public partial class ResultPage : Form {
@@ -12,15 +12,14 @@ namespace Examist {
         private readonly IResult result;
 
         public ResultPage(IResult result) {
-            this.result = result;
+            InitializeComponent();
 
+            this.result = result;
             resultMessageLabel.Text = result.Message;
             studentName.Text = result.Student.Name;
             batchNumber.Text = result.Student.BatchNumber;
             timeValue.Text = result.TimeTaken;
             nextButton.Text = result.ButtonName;
-
-            InitializeComponent();
         }
 
         #region Generated
@@ -39,7 +38,7 @@ namespace Examist {
             // 
             this.resultMessageLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.resultMessageLabel.AutoSize = true;
-            this.resultMessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.resultMessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultMessageLabel.Location = new System.Drawing.Point(388, 226);
             this.resultMessageLabel.Name = "resultMessageLabel";
             this.resultMessageLabel.Size = new System.Drawing.Size(181, 31);
@@ -51,7 +50,7 @@ namespace Examist {
             // 
             this.timeValue.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.timeValue.AutoSize = true;
-            this.timeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.timeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeValue.Location = new System.Drawing.Point(434, 271);
             this.timeValue.Name = "timeValue";
             this.timeValue.Size = new System.Drawing.Size(98, 37);
@@ -62,7 +61,7 @@ namespace Examist {
             // 
             this.studentName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.studentName.AutoSize = true;
-            this.studentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.studentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.studentName.Location = new System.Drawing.Point(374, 178);
             this.studentName.Name = "studentName";
             this.studentName.Size = new System.Drawing.Size(219, 31);
@@ -73,7 +72,7 @@ namespace Examist {
             // 
             this.batchNumber.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.batchNumber.AutoSize = true;
-            this.batchNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.batchNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.batchNumber.Location = new System.Drawing.Point(422, 132);
             this.batchNumber.Name = "batchNumber";
             this.batchNumber.Size = new System.Drawing.Size(110, 31);
@@ -103,15 +102,15 @@ namespace Examist {
             // 
             // copyRightLabel
             // 
-            this.copyRightLabel.Anchor = (System.Windows.Forms.AnchorStyles) (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            this.copyRightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.copyRightLabel.AutoSize = true;
-            this.copyRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.copyRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.copyRightLabel.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.copyRightLabel.Location = new System.Drawing.Point(784, 24);
             this.copyRightLabel.Name = "copyRightLabel";
             this.copyRightLabel.Size = new System.Drawing.Size(174, 16);
             this.copyRightLabel.TabIndex = 0;
-            this.copyRightLabel.Text = "Copyright © 2026 Dharshik S";
+            this.copyRightLabel.Text = "Copyright � 2026 Dharshik S";
             // 
             // ResultPage
             // 

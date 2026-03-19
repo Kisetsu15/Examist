@@ -1,7 +1,7 @@
-﻿namespace Examist {
+namespace Examist {
     public interface ILanguage {
         string Question { get; }
-        string BuggedProgram { get; }
-        bool Verify(string program);
+        VerificationResult Verify(string program);
+        string GetBuggedProgram();
     }
 }

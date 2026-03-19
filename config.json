@@ -1,0 +1,38 @@
+{
+  "LevelOne": {
+    "Java": {
+      "Question": "Debug the Java program",
+      "BuggedProgramPath": "Scripts/Programs/java_program_1.txt",
+      "UserProgramPath": "Runtime/User/java_1.txt",
+      "TesterCommand": "python",
+      "TesterScriptPath": "Scripts/Tester/tester.py",
+      "TesterArguments": "\"{testerScriptPath}\" \"{userProgramPath}\" \"{buggedProgramPath}\""
+    },
+    "Python": {
+      "Question": "Debug the Python program",
+      "BuggedProgramPath": "Scripts/Programs/python_program_1.txt",
+      "UserProgramPath": "Runtime/User/python_1.txt",
+      "TesterCommand": "python",
+      "TesterScriptPath": "Scripts/Tester/tester.py",
+      "TesterArguments": "\"{testerScriptPath}\" \"{userProgramPath}\" \"{buggedProgramPath}\""
+    }
+  },
+  "LevelTwo": {
+    "Java": {
+      "Question": "Debug the Java program",
+      "BuggedProgramPath": "Scripts/Programs/java_program_2.txt",
+      "UserProgramPath": "Runtime/User/java_2.txt",
+      "TesterCommand": "python",
+      "TesterScriptPath": "Scripts/Tester/tester.py",
+      "TesterArguments": "\"{testerScriptPath}\" \"{userProgramPath}\" \"{buggedProgramPath}\""
+    },
+    "Python": {
+      "Question": "Debug the Python program",
+      "BuggedProgramPath": "Scripts/Programs/python_program_2.txt",
+      "UserProgramPath": "Runtime/User/python_2.txt",
+      "TesterCommand": "python",
+      "TesterScriptPath": "Scripts/Tester/tester.py",
+      "TesterArguments": "\"{testerScriptPath}\" \"{userProgramPath}\" \"{buggedProgramPath}\""
+    }
+  }
+}

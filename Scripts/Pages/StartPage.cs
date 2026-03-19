@@ -220,7 +220,7 @@ namespace Examist {
 
 
             var selectionPage = new LevelSelectionPage(
-                    new Student(name, batchNumber)
+                    new Student(batchNumber, name)
                 );
 
             selectionPage.Show();
