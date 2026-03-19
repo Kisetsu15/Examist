@@ -53,9 +53,8 @@ namespace Examist {
         }
 
         void SubmitButton_Click(object sender, EventArgs e) {
-            var resultPage = new ResultPage(student, time.TimeSpentString);
-            resultPage.Show();
-            Hide();
+            var resultPage = new ResultPage(new Passed(student, time.TimeSpentString));
+            this.SwitchForm(resultPage);
         }
 
         void VerifyButton_Click(object sender, EventArgs e) {
@@ -74,15 +73,10 @@ namespace Examist {
             timerLabel.Text = $"{time.TimeLeftString}";
 
             if (time.IsEnded) {
-                CloseApplication("Test Time Over!");
+                timer.Stop();
+                var resultPage = new ResultPage(new Failed(student));
+                this.SwitchForm(resultPage);
             }
-        }
-
-        void CloseApplication(string message) {
-            timer.Stop();
-            MessageBox.Show(message);
-            canClose = true;
-            Application.Exit();
         }
     }
 }

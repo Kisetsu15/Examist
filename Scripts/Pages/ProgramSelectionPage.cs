@@ -76,12 +76,12 @@ namespace Examist {
             this.javaPanel.Size = new System.Drawing.Size(614, 74);
             this.javaPanel.TabIndex = 0;
             // 
-            // JavaLabel
+            // javaLabel
             // 
             this.javaLabel.AutoSize = true;
             this.javaLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.javaLabel.Location = new System.Drawing.Point(25, 22);
-            this.javaLabel.Name = "JavaLabel";
+            this.javaLabel.Name = "javaLabel";
             this.javaLabel.Size = new System.Drawing.Size(147, 29);
             this.javaLabel.TabIndex = 2;
             this.javaLabel.Text = "Java Program";
@@ -206,7 +206,7 @@ namespace Examist {
             this.header.Size = new System.Drawing.Size(944, 56);
             this.header.TabIndex = 7;
             // 
-            // SelectionPage
+            // ProgramSelectionPage
             // 
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(944, 501);
@@ -214,7 +214,7 @@ namespace Examist {
             this.Controls.Add(this.header);
             this.Controls.Add(this.pythonPanel);
             this.Controls.Add(this.javaPanel);
-            this.Name = "SelectionPage";
+            this.Name = "ProgramSelectionPage";
             this.Text = "Selection Page";
             this.javaPanel.ResumeLayout(false);
             this.javaPanel.PerformLayout();

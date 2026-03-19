@@ -13,5 +13,10 @@ namespace Examist {
         public static string PadZero(this object text, int width = 2) {
             return text.ToString().PadLeft(width, '0');
         }
+
+        public static void SwitchForm(this Form currentForm, Form nextForm) {
+            nextForm.Show();
+            currentForm.Hide();
+        }
     }
 }
