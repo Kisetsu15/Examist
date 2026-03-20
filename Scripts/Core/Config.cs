@@ -41,6 +41,7 @@ namespace Examist {
     }
 
     public sealed class LanguageConfig {
+        public int Level { get; set; }
         public string Question { get; set; }
         public string BuggedProgramPath { get; set; }
         public string UserProgramPath { get; set; }

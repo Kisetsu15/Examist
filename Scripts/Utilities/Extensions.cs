@@ -18,12 +18,11 @@ namespace Examist {
             nextForm.Show();
             currentForm.Hide();
         }
-    }
 
-    public static class Strings {
-        public const string SUCCESS = "success";
-        public const string ERROR = "error";
-        public const string INVALID = "invalid";
-        public const string PYTHON = "python";
+        public static void WindowStyle(this Form form) {
+            form.WindowState = FormWindowState.Maximized;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.TopMost = true;
+        }
     }
 }

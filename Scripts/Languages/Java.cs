@@ -9,6 +9,8 @@ namespace Examist {
 
         public string Question => config.Question;
 
+        public int CurrentLevel => config.Level;
+
         public Java(LanguageConfig config) {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
         }

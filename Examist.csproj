@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scripts\Results\Completed.cs" />
     <Compile Include="Scripts\Utilities\Extensions.cs" />
     <Compile Include="Scripts\Contracts\ILanguage.cs" />
     <Compile Include="Scripts\Contracts\ILevel.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Models\Time.cs" />
     <Compile Include="Scripts\Utilities\Language.cs" />
+    <Compile Include="Scripts\Utilities\Strings.cs" />
     <EmbeddedResource Include="Scripts\Pages\LevelSelectionPage.resx">
       <DependentUpon>LevelSelectionPage.cs</DependentUpon>
     </EmbeddedResource>

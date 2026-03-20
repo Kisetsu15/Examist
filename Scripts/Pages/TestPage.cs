@@ -25,9 +25,7 @@ namespace Examist {
             timerLabel.Text = time.TimeLeftString;
             QuestionLabel.Text = language.Question;
 
-            WindowState = FormWindowState.Maximized;
-            FormBorderStyle = FormBorderStyle.None;
-            TopMost = true;
+            this.WindowStyle();
         }
 
         private void TestPage_Load(object sender, EventArgs e) {
@@ -71,7 +69,10 @@ namespace Examist {
                 return;
             }
 
-            var resultPage = new ResultPage(new Passed(student, time.TimeSpentString));
+            IResult result; ;
+            result = language.CurrentLevel == 2 ? new Completed(student, time.TimeSpentString) : (IResult) new Passed(student, time.TimeSpentString);
+
+            var resultPage = new ResultPage(result);
             this.SwitchForm(resultPage);
         }
 

@@ -6,6 +6,7 @@ namespace Examist {
     public class Python : ILanguage {
         private const string ERROR_MESSAGE = "fatal: The original bugged program could not be found.";
         private readonly LanguageConfig config;
+        public int CurrentLevel => config.Level;
 
         public string Question => config.Question;
 

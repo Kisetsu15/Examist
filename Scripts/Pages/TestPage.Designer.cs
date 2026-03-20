@@ -43,12 +43,15 @@
             this.statusPanel = new System.Windows.Forms.Panel();
             this.programStatusLabel = new System.Windows.Forms.Label();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
+            this.QuestionHeader = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.header.SuspendLayout();
             this.footer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.codeBox)).BeginInit();
             this.buttonsPanel.SuspendLayout();
             this.questionPanel.SuspendLayout();
             this.statusPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // proceedButton
@@ -58,7 +61,7 @@
             this.proceedButton.FlatAppearance.BorderSize = 0;
             this.proceedButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.proceedButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.proceedButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.proceedButton.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.proceedButton.Location = new System.Drawing.Point(983, 28);
             this.proceedButton.Name = "proceedButton";
             this.proceedButton.Size = new System.Drawing.Size(130, 50);
@@ -70,12 +73,13 @@
             // QuestionLabel
             // 
             this.QuestionLabel.AutoSize = true;
-            this.QuestionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuestionLabel.Location = new System.Drawing.Point(18, 18);
+            this.QuestionLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuestionLabel.ForeColor = System.Drawing.Color.Black;
+            this.QuestionLabel.Location = new System.Drawing.Point(15, 80);
             this.QuestionLabel.Name = "QuestionLabel";
-            this.QuestionLabel.Size = new System.Drawing.Size(188, 20);
+            this.QuestionLabel.Size = new System.Drawing.Size(269, 26);
             this.QuestionLabel.TabIndex = 4;
-            this.QuestionLabel.Text = "Debug the following code";
+            this.QuestionLabel.Text = "Question will be updated here";
             // 
             // verifyButton
             // 
@@ -149,7 +153,7 @@
             this.timerLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.timerLabel.AutoSize = true;
             this.timerLabel.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.timerLabel.ForeColor = System.Drawing.Color.White;
             this.timerLabel.Location = new System.Drawing.Point(1051, 14);
             this.timerLabel.Name = "timerLabel";
             this.timerLabel.Size = new System.Drawing.Size(62, 26);
@@ -240,13 +244,13 @@
             this.codeBox.DocumentPath = null;
             this.codeBox.Font = new System.Drawing.Font("Courier New", 14.25F);
             this.codeBox.IsReplaceMode = false;
-            this.codeBox.Location = new System.Drawing.Point(679, 170);
+            this.codeBox.Location = new System.Drawing.Point(673, 170);
             this.codeBox.Name = "codeBox";
             this.codeBox.Paddings = new System.Windows.Forms.Padding(0);
             this.codeBox.SelectionChangedDelayedEnabled = false;
             this.codeBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.codeBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeBox.ServiceColors")));
-            this.codeBox.Size = new System.Drawing.Size(434, 314);
+            this.codeBox.Size = new System.Drawing.Size(440, 314);
             this.codeBox.TabIndex = 11;
             this.codeBox.Text = "Code Box";
             this.codeBox.Zoom = 100;
@@ -270,10 +274,11 @@
             this.questionPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.questionPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.questionPanel.Controls.Add(this.panel1);
             this.questionPanel.Controls.Add(this.QuestionLabel);
             this.questionPanel.Location = new System.Drawing.Point(17, 170);
             this.questionPanel.Name = "questionPanel";
-            this.questionPanel.Size = new System.Drawing.Size(656, 366);
+            this.questionPanel.Size = new System.Drawing.Size(650, 366);
             this.questionPanel.TabIndex = 13;
             // 
             // statusPanel
@@ -282,9 +287,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.statusPanel.BackColor = System.Drawing.Color.Orange;
             this.statusPanel.Controls.Add(this.programStatusLabel);
-            this.statusPanel.Location = new System.Drawing.Point(679, 490);
+            this.statusPanel.Location = new System.Drawing.Point(673, 490);
             this.statusPanel.Name = "statusPanel";
-            this.statusPanel.Size = new System.Drawing.Size(433, 45);
+            this.statusPanel.Size = new System.Drawing.Size(439, 45);
             this.statusPanel.TabIndex = 14;
             // 
             // programStatusLabel
@@ -302,6 +307,26 @@
             // 
             this.statusTimer.Interval = 1000;
             this.statusTimer.Tick += new System.EventHandler(this.StatusTimer_Tick);
+            // 
+            // QuestionHeader
+            // 
+            this.QuestionHeader.AutoSize = true;
+            this.QuestionHeader.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuestionHeader.ForeColor = System.Drawing.Color.Black;
+            this.QuestionHeader.Location = new System.Drawing.Point(15, 15);
+            this.QuestionHeader.Name = "QuestionHeader";
+            this.QuestionHeader.Size = new System.Drawing.Size(118, 33);
+            this.QuestionHeader.TabIndex = 5;
+            this.QuestionHeader.Text = "Question";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.Controls.Add(this.QuestionHeader);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(650, 60);
+            this.panel1.TabIndex = 6;
             // 
             // TestPage
             // 
@@ -330,6 +355,8 @@
             this.questionPanel.PerformLayout();
             this.statusPanel.ResumeLayout(false);
             this.statusPanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -353,6 +380,8 @@
         private System.Windows.Forms.Panel statusPanel;
         private System.Windows.Forms.Label programStatusLabel;
         private System.Windows.Forms.Timer statusTimer;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label QuestionHeader;
     }
 }
 
