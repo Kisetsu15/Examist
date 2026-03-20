@@ -1,37 +1,43 @@
 {
-  "testerCommand": "python",
-  "testerScripts": {
-    "java": ".emt\\Runtime\\java_tester.py",
-    "python": ".emt\\Runtime\\python_tester.py"
+  "TesterCommand": "python",
+  "TesterScripts": {
+    "Java": ".emt\\Runtime\\java_tester.py",
+    "Python": ".emt\\Runtime\\python_tester.py"
   },
-  "levels": [
+  "Levels": [
     {
-      "number": 1,
-      "languages": {
-        "java": {
-          "question": ".emt\\Questions\\java_question_1.txt",
-          "buggedProgram": ".emt\\Programs\\java_program_1.txt",
-          "userProgram": ".emt\\Runtime\\User\\java_1.txt"
+      "Number": 1,
+      "TimeInMinutes": 15,
+      "Languages": {
+        "Java": {
+          "QuestionPath": ".emt\\Questions\\java_question_1.txt",
+          "BuggedPath": ".emt\\Programs\\java_program_1.txt",
+          "UserPath": ".emt\\Runtime\\User\\java_1.txt",
+          "OutputPath": ".emt\\Runtime\\Output\\java_output_1.txt"
         },
-        "python": {
-          "question": ".emt\\Questions\\python_question_1.txt",
-          "buggedProgram": ".emt\\Programs\\python_program_1.txt",
-          "userProgram": ".emt\\Runtime\\User\\python_1.txt"
+        "Python": {
+          "QuestionPath": ".emt\\Questions\\python_question_1.txt",
+          "BuggedPath": ".emt\\Programs\\python_program_1.txt",
+          "UserPath": ".emt\\Runtime\\User\\python_1.txt",
+          "OutputPath": ".emt\\Runtime\\Output\\python_output_1.txt"
         }
       }
     },
     {
-      "number": 2,
-      "languages": {
-        "java": {
-          "question": ".emt\\Questions\\java_question_2.txt",
-          "buggedProgram": ".emt\\Programs\\java_program_2.txt",
-          "userProgram": ".emt\\Runtime\\User\\java_2.txt"
+      "Number": 2,
+      "TimeInMinutes": 25,
+      "Languages": {
+        "Java": {
+          "QuestionPath": ".emt\\Questions\\java_question_2.txt",
+          "BuggedPath": ".emt\\Programs\\java_program_2.txt",
+          "UserPath": ".emt\\Runtime\\User\\java_2.txt",
+          "OutputPath": ".emt\\Runtime\\Output\\java_output_2.txt"
         },
-        "python": {
-          "question": ".emt\\Questions\\python_question_2.txt",
-          "buggedProgram": ".emt\\Programs\\python_program_2.txt",
-          "userProgram": ".emt\\Runtime\\User\\python_2.txt"
+        "Python": {
+          "QuestionPath": ".emt\\Questions\\python_question_2.txt",
+          "BuggedPath": ".emt\\Programs\\python_program_2.txt",
+          "UserPath": ".emt\\Runtime\\User\\python_2.txt",
+          "OutputPath": ".emt\\Runtime\\Output\\python_output_2.txt"
         }
       }
     }

@@ -1,18 +1,15 @@
-def transfer(balance, amount):
-    if amount <= 0:
+Def transfer(balance, amount):
+    if amount > 0;
         print("Invalid amount")
-        return
 
-    if amount > balance:
+    if amount > balance;
         print("Insufficient balance")
-        return
 
-    if amount % 100 != 0:
-        print("Amount should be multiple of 100")
-        return
+    Balance = balance - amount
 
-    balance -= amount
+    if amount % 100 == 0;
+        pirnt("Amount should be multiple of 100")
 
-    print("Transferred:", amount)
-    print("Remaining balance:", balance)
-transfer(1000, 800)
+    print("Transferred:"+ amount)
+    print("Remaining balance:"+ balance)
+    transfer(1000, 800)

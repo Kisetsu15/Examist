@@ -1,21 +1,10 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace Examist {
     public static class Language {
-
-        public static string BuildTesterArguments(string testerScriptPath, string userPath, LanguageConfig config) {
-            string template = config.TesterArguments;
-            if (string.IsNullOrWhiteSpace(template)) {
-                template = "\"{testerScriptPath}\" \"{userProgramPath}\"";
-            }
-
-            string buggedProgramPath = ResolvePath(config.BuggedProgramPath) ?? string.Empty;
-
-            return template
-                .Replace("{testerScriptPath}", testerScriptPath)
-                .Replace("{userProgramPath}", userPath)
-                .Replace("{buggedProgramPath}", buggedProgramPath);
+        public static string BuildTesterArguments(string testerScriptPath, string userPath, string outputPath) {
+            return $"\"{testerScriptPath}\" \"{userPath}\" \"{outputPath}\"";
         }
 
         public static string ParseTesterResult(string output, string error) {

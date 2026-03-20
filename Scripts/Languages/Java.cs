@@ -4,11 +4,9 @@ using System.IO;
 
 namespace Examist {
     public class Java : ILanguage {
-        private const string ERROR_MESSAGE = "fatal: The original bugged program could not be found.";
         private readonly LanguageConfig config;
 
-        public string Question => LoadQuestion();
-
+        public string Question => Load(config.QuestionPath);
         public int Level => config.Level;
 
         public Java(LanguageConfig config) {
@@ -20,20 +18,11 @@ namespace Examist {
         }
 
         public string GetBuggedProgram() {
-            string path = Language.ResolvePath(config.BuggedProgramPath);
-            if (path == null) {
-                return ERROR_MESSAGE;
-            }
-
-            try {
-                return File.ReadAllText(path);
-            } catch {
-                return ERROR_MESSAGE;
-            }
+            return Load(config.BuggedPath);
         }
 
-        private string LoadQuestion() {
-            string path = Language.ResolvePath(config.QuestionPath);
+        private string Load(string filePath) {
+            string path = Language.ResolvePath(filePath);
             if (path == null) {
                 return string.Empty;
             }
@@ -46,9 +35,14 @@ namespace Examist {
         }
 
         private VerificationResult RunTester(string program) {
-            string userPath = Language.ResolveOutputPath(config.UserProgramPath);
+            string userPath = Language.ResolveOutputPath(config.UserPath);
+            string outputPath = Language.ResolveOutputPath(config.OutputPath);
             if (userPath == null) {
-                return VerificationResult.Error("Tester failed: User program path is not configured.");
+                return VerificationResult.Error("Tester failed: user file path is not configured.");
+            }
+
+            if (outputPath == null) {
+                return VerificationResult.Error("Tester failed: output file path is not configured.");
             }
 
             string testerScriptPath = Language.ResolvePath(config.TesterScriptPath);
@@ -58,13 +52,16 @@ namespace Examist {
 
             try {
                 Directory.CreateDirectory(Path.GetDirectoryName(userPath));
+                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                 File.WriteAllText(userPath, program ?? string.Empty);
             } catch (Exception ex) {
                 return VerificationResult.Error($"Tester failed: could not save your code. {ex.Message}");
             }
 
-            string testerCommand = string.IsNullOrWhiteSpace(config.TesterCommand) ? Strings.PYTHON : config.TesterCommand;
-            string arguments = Language.BuildTesterArguments(testerScriptPath, userPath, config);
+            string testerCommand = string.IsNullOrWhiteSpace(config.TesterCommand) ?
+                Strings.PYTHON : config.TesterCommand;
+
+            string arguments = Language.BuildTesterArguments(testerScriptPath, userPath, outputPath);
 
             try {
                 var startInfo = new ProcessStartInfo {

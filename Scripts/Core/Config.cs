@@ -10,28 +10,22 @@ namespace Examist {
 
         public static Config Current => current.Value;
 
-        [JsonProperty("testerCommand")]
         public string TesterCommand { get; set; }
-
-        [JsonProperty("testerScripts")]
         public TesterScriptsConfig TesterScripts { get; set; }
-
-        [JsonProperty("levels")]
         public List<LevelDefinition> Levels { get; set; }
 
         public LevelDefinition GetLevel(int levelNumber) {
-            LevelDefinition level = Levels?.FirstOrDefault(item => item.Number == levelNumber);
-            if (level == null) {
+            LevelDefinition level = (Levels?.FirstOrDefault(item => item.Number == levelNumber)) ??
                 throw new InvalidOperationException($"Level {levelNumber} is not defined in .emt\\config.json.");
-            }
-
             return level;
         }
 
         private static Config Load() {
             string path = ResolveConfigPath();
             string json = File.ReadAllText(path);
-            Config config = JsonConvert.DeserializeObject<Config>(json) ?? throw new InvalidOperationException(".emt\\config.json could not be parsed.");
+            Config config = JsonConvert.DeserializeObject<Config>(json) ??
+                throw new InvalidOperationException(".emt\\config.json could not be parsed.");
+
             config.ApplyDefaults();
             return config;
         }
@@ -42,29 +36,32 @@ namespace Examist {
             }
 
             foreach (LevelDefinition level in Levels) {
-                ApplyLanguageDefaults(level?.Languages?.Java, level?.Number ?? 0, TesterScripts?.Java);
-                ApplyLanguageDefaults(level?.Languages?.Python, level?.Number ?? 0, TesterScripts?.Python);
+                ApplyLanguageDefaults(level?.Languages?.Java, level?.Number ?? 0, TesterScripts?.Java, TesterCommand);
+                ApplyLanguageDefaults(level?.Languages?.Python, level?.Number ?? 0, TesterScripts?.Python, TesterCommand);
             }
         }
 
-        private static void ApplyLanguageDefaults(LanguageConfig language, int level, string testerScriptPath) {
+        private static void ApplyLanguageDefaults(
+            LanguageConfig language, int level, string testerScriptPath, string testerCommand) {
+
             if (language == null) {
                 return;
             }
 
             language.Level = level;
-            language.TesterCommand = Strings.PYTHON;
-            language.TesterScriptPath = testerScriptPath;
+            language.TesterCommand = string.IsNullOrWhiteSpace(language.TesterCommand)
+                ? (string.IsNullOrWhiteSpace(testerCommand) ? Strings.PYTHON : testerCommand)
+                : language.TesterCommand;
+            language.TesterScriptPath = string.IsNullOrWhiteSpace(language.TesterScriptPath)
+                ? testerScriptPath
+                : language.TesterScriptPath;
         }
 
         private static string ResolveConfigPath() {
             string[] candidates = {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".emt", "config.json"),
                 Path.Combine(Environment.CurrentDirectory, ".emt", "config.json"),
-                Path.GetFullPath(Path.Combine(".emt", "config.json")),
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json"),
-                Path.Combine(Environment.CurrentDirectory, "config.json"),
-                Path.GetFullPath("config.json")
+                Path.GetFullPath(Path.Combine(".emt", "config.json"))
             };
 
             foreach (string candidate in candidates) {
@@ -78,43 +75,28 @@ namespace Examist {
     }
 
     public sealed class TesterScriptsConfig {
-        [JsonProperty("python")]
-        public string Python { get; set; }
-
-        [JsonProperty("java")]
         public string Java { get; set; }
+        public string Python { get; set; }
     }
 
     public sealed class LevelDefinition {
-        [JsonProperty("number")]
         public int Number { get; set; }
-
-        [JsonProperty("languages")]
+        public int TimeInMinutes { get; set; }
         public LevelLanguages Languages { get; set; }
     }
 
     public sealed class LevelLanguages {
-        [JsonProperty("java")]
         public LanguageConfig Java { get; set; }
-
-        [JsonProperty("python")]
         public LanguageConfig Python { get; set; }
     }
 
     public sealed class LanguageConfig {
         public int Level { get; set; }
-
-        [JsonProperty("question")]
         public string QuestionPath { get; set; }
-
-        [JsonProperty("buggedProgram")]
-        public string BuggedProgramPath { get; set; }
-
-        [JsonProperty("userProgram")]
-        public string UserProgramPath { get; set; }
-
+        public string BuggedPath { get; set; }
+        public string UserPath { get; set; }
+        public string OutputPath { get; set; }
         public string TesterCommand { get; set; }
         public string TesterScriptPath { get; set; }
-        public string TesterArguments { get; set; }
     }
 }

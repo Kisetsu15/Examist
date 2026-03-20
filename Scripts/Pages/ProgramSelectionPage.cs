@@ -34,7 +34,8 @@ namespace Examist {
             this.student = student;
             this.level = level;
 
-            time = new Time(timeInSeconds: level.TimeInMinutes);
+            int oneMinute = 60;
+            time = new Time(timeInSeconds: level.TimeInMinutes * oneMinute);
             timer.Interval = ONE_SECOND;
             timerLabel.Text = time.TimeLeftString;
             timer.Start();
