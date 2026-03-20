@@ -5,11 +5,11 @@ namespace Examist {
         public int TimeInMinutes { get; } = 15;
 
         public Java GetJava() {
-            return new Java(Config.Current.LevelOne.Java);
+            return new Java(Config.Current.GetLevel(Level).Languages.Java);
         }
 
         public Python GetPython() {
-            return new Python(Config.Current.LevelOne.Python);
+            return new Python(Config.Current.GetLevel(Level).Languages.Python);
         }
     }
 }

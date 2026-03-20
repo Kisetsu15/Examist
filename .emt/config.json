@@ -1,0 +1,39 @@
+{
+  "testerCommand": "python",
+  "testerScripts": {
+    "java": ".emt\\Runtime\\java_tester.py",
+    "python": ".emt\\Runtime\\python_tester.py"
+  },
+  "levels": [
+    {
+      "number": 1,
+      "languages": {
+        "java": {
+          "question": ".emt\\Questions\\java_question_1.txt",
+          "buggedProgram": ".emt\\Programs\\java_program_1.txt",
+          "userProgram": ".emt\\Runtime\\User\\java_1.txt"
+        },
+        "python": {
+          "question": ".emt\\Questions\\python_question_1.txt",
+          "buggedProgram": ".emt\\Programs\\python_program_1.txt",
+          "userProgram": ".emt\\Runtime\\User\\python_1.txt"
+        }
+      }
+    },
+    {
+      "number": 2,
+      "languages": {
+        "java": {
+          "question": ".emt\\Questions\\java_question_2.txt",
+          "buggedProgram": ".emt\\Programs\\java_program_2.txt",
+          "userProgram": ".emt\\Runtime\\User\\java_2.txt"
+        },
+        "python": {
+          "question": ".emt\\Questions\\python_question_2.txt",
+          "buggedProgram": ".emt\\Programs\\python_program_2.txt",
+          "userProgram": ".emt\\Runtime\\User\\python_2.txt"
+        }
+      }
+    }
+  ]
+}

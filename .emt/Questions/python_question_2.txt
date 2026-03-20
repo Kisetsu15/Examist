@@ -1,0 +1,18 @@
+The following Python program is intended to:
+a) Filter even numbers from a list
+b) Calculate the average of those even numbers
+
+However, the program contains syntax and logical errors.
+
+Important:
+You are not allowed to rewrite or redesign the program.
+Only fix the bugs while keeping the original structure intact.
+
+Task:
+1) Identify and fix all errors in the program
+2) Do not change the structure or logic flow
+3) Ensure the program runs correctly
+
+Expected Output:
+Even numbers: [2, 8, 14]
+Average of even numbers: 8.0

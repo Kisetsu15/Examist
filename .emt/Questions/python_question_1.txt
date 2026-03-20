@@ -1,0 +1,17 @@
+The following Python program is intended to simulate a bank transfer system.
+It validates the transfer amount and updates the balance.
+
+However, the program may contain logical issues.
+
+Important:
+You are not allowed to rewrite or redesign the program.
+Only identify and fix the bugs while keeping the original structure intact.
+
+Task:
+1) Identify the bug(s) in the program (if any).
+2) Fix them without changing the structure or flow of the program.
+3) Ensure correct output is produced.
+
+Expected Output:
+Transferred: 800
+Remaining balance: 200

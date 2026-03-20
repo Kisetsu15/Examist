@@ -31,7 +31,7 @@ namespace Examist {
 
         #region Generated
         private void InitializeComponent() {
-            this.loginPanel = new System.Windows.Forms.Panel();
+            this.loginPanel = new Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.errorLabel = new System.Windows.Forms.Label();
@@ -45,8 +45,8 @@ namespace Examist {
             this.examistLabel = new System.Windows.Forms.Label();
             this.loginHolder = new System.Windows.Forms.Panel();
             this.exitButton = new System.Windows.Forms.Button();
-            this.titleHolder = new System.Windows.Forms.Panel();
-            this.taglineLabel = new System.Windows.Forms.Label();
+            this.titleHolder = new Panel();
+            this.taglineLabel = new Label();
             this.loginPanel.SuspendLayout();
             this.footer.SuspendLayout();
             this.loginHolder.SuspendLayout();

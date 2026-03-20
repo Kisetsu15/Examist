@@ -48,7 +48,7 @@ namespace Examist {
             // 
             this.resultMessageLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.resultMessageLabel.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
-            this.resultMessageLabel.Location = new System.Drawing.Point(0, 260);
+            this.resultMessageLabel.Location = new System.Drawing.Point(0, 232);
             this.resultMessageLabel.Name = "resultMessageLabel";
             this.resultMessageLabel.Size = new System.Drawing.Size(500, 100);
             this.resultMessageLabel.TabIndex = 0;
@@ -70,7 +70,7 @@ namespace Examist {
             // 
             this.studentName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.studentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
-            this.studentName.Location = new System.Drawing.Point(0, 201);
+            this.studentName.Location = new System.Drawing.Point(0, 196);
             this.studentName.Name = "studentName";
             this.studentName.Size = new System.Drawing.Size(500, 31);
             this.studentName.TabIndex = 2;
@@ -109,9 +109,9 @@ namespace Examist {
             this.footer.BackColor = System.Drawing.SystemColors.Highlight;
             this.footer.Controls.Add(this.copyRightLabel);
             this.footer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.footer.Location = new System.Drawing.Point(0, 761);
+            this.footer.Location = new System.Drawing.Point(0, 762);
             this.footer.Name = "footer";
-            this.footer.Size = new System.Drawing.Size(1048, 49);
+            this.footer.Size = new System.Drawing.Size(1077, 49);
             this.footer.TabIndex = 9;
             // 
             // copyRightLabel
@@ -120,7 +120,7 @@ namespace Examist {
             this.copyRightLabel.AutoSize = true;
             this.copyRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.copyRightLabel.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.copyRightLabel.Location = new System.Drawing.Point(774, 24);
+            this.copyRightLabel.Location = new System.Drawing.Point(891, 24);
             this.copyRightLabel.Name = "copyRightLabel";
             this.copyRightLabel.Size = new System.Drawing.Size(174, 16);
             this.copyRightLabel.TabIndex = 0;
@@ -130,13 +130,13 @@ namespace Examist {
             // 
             this.resultHolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.resultHolder.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.resultHolder.Controls.Add(this.resultMessageLabel);
             this.resultHolder.Controls.Add(this.panel1);
             this.resultHolder.Controls.Add(this.nextButton);
             this.resultHolder.Controls.Add(this.batchNumber);
             this.resultHolder.Controls.Add(this.studentName);
             this.resultHolder.Controls.Add(this.timeValue);
-            this.resultHolder.Controls.Add(this.resultMessageLabel);
-            this.resultHolder.Location = new System.Drawing.Point(276, 94);
+            this.resultHolder.Location = new System.Drawing.Point(290, 94);
             this.resultHolder.Name = "resultHolder";
             this.resultHolder.Size = new System.Drawing.Size(500, 600);
             this.resultHolder.TabIndex = 10;
@@ -166,7 +166,7 @@ namespace Examist {
             // ResultPage
             // 
             this.BackColor = System.Drawing.Color.FromArgb((int) (byte) 232, (int) (byte) 232, (int) (byte) 232);
-            this.ClientSize = new System.Drawing.Size(1048, 810);
+            this.ClientSize = new System.Drawing.Size(1077, 811);
             this.Controls.Add(this.resultHolder);
             this.Controls.Add(this.footer);
             this.Name = "ResultPage";

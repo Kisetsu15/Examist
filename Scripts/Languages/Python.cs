@@ -6,9 +6,9 @@ namespace Examist {
     public class Python : ILanguage {
         private const string ERROR_MESSAGE = "fatal: The original bugged program could not be found.";
         private readonly LanguageConfig config;
-        public int CurrentLevel => config.Level;
+        public int Level => config.Level;
 
-        public string Question => config.Question;
+        public string Question => LoadQuestion();
 
         public Python(LanguageConfig config) {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
@@ -28,6 +28,19 @@ namespace Examist {
                 return File.ReadAllText(path);
             } catch {
                 return ERROR_MESSAGE;
+            }
+        }
+
+        private string LoadQuestion() {
+            string path = Language.ResolvePath(config.QuestionPath);
+            if (path == null) {
+                return string.Empty;
+            }
+
+            try {
+                return File.ReadAllText(path);
+            } catch {
+                return string.Empty;
             }
         }
 

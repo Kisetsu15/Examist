@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+using System;
+using System.Windows.Forms;
 
 namespace Examist {
     public class Failed : IResult {
@@ -14,7 +15,8 @@ namespace Examist {
         }
 
         public void Execute(Form current) {
-            Application.Exit();
+            current.Close();
+            Environment.Exit(0);
         }
     }
 }

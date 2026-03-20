@@ -70,7 +70,7 @@ namespace Examist {
             }
 
             IResult result; ;
-            result = language.CurrentLevel == 2 ? new Completed(student, time.TimeSpentString) : (IResult) new Passed(student, time.TimeSpentString);
+            result = language.Level == 2 ? new Completed(student, time.TimeSpentString) : (IResult) new Passed(student, time.TimeSpentString);
 
             var resultPage = new ResultPage(result);
             this.SwitchForm(resultPage);
