@@ -1,4 +1,4 @@
-﻿namespace Examist {
+namespace Examist {
     partial class TestPage {
         /// <summary>
         /// Required designer variable.
@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestPage));
             this.proceedButton = new System.Windows.Forms.Button();
             this.QuestionLabel = new System.Windows.Forms.Label();
             this.verifyButton = new System.Windows.Forms.Button();
@@ -193,7 +192,7 @@
             this.copyRightLabel.Name = "copyRightLabel";
             this.copyRightLabel.Size = new System.Drawing.Size(174, 16);
             this.copyRightLabel.TabIndex = 0;
-            this.copyRightLabel.Text = "Copyright © 2026 Dharshik S";
+            this.copyRightLabel.Text = "Copyright � 2026 Dharshik S";
             // 
             // backButton
             // 
@@ -250,7 +249,7 @@
             this.codeBox.Paddings = new System.Windows.Forms.Padding(0);
             this.codeBox.SelectionChangedDelayedEnabled = false;
             this.codeBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.codeBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("codeBox.ServiceColors")));
+            this.codeBox.ServiceColors = new FastColoredTextBoxNS.ServiceColors();
             this.codeBox.Size = new System.Drawing.Size(420, 324);
             this.codeBox.TabIndex = 11;
             this.codeBox.Text = "Code Box";
@@ -384,4 +383,5 @@
         private System.Windows.Forms.Label QuestionHeader;
     }
 }
+
 

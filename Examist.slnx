@@ -1,3 +1,11 @@
 <Solution>
-  <Project Path="Examist.csproj" Id="8900c05e-5d56-48ed-8147-59e9181eb752" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Examist.csproj" Id="8900c05e-5d56-48ed-8147-59e9181eb752">
+    <BuildType Solution="Debug|x86" Project="Release" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="Examist.Modern.csproj" Id="7f26074a-4c66-4e62-baa4-f7338d1479d0" />
 </Solution>
