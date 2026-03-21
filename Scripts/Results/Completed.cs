@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Examist {
     public class Completed : IResult {
@@ -13,8 +14,10 @@ namespace Examist {
             TimeTaken = time;
         }
 
-        public void Execute(Form current) {
-            Application.Exit();
+        public void Execute(Form current, int level) {
+            Extensions.SaveResults(Student, TimeTaken, level);
+            current.Close();
+            Environment.Exit(0);
         }
     }
 }

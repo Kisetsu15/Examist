@@ -7,6 +7,6 @@ namespace Examist {
         string Message { get; }
         string TimeTaken { get; }
         bool IsPassed { get; }
-        void Execute(Form current);
+        void Execute(Form current, int level);
     }
 }

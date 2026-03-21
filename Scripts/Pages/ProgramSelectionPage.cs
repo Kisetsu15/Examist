@@ -44,6 +44,7 @@ namespace Examist {
             batchNumber.Text = student.BatchNumber;
             levelLabel.Text = $"Level {level.Level}";
             this.WindowStyle();
+            Keyboard.Start();
         }
 
 
@@ -176,7 +177,7 @@ namespace Examist {
             this.copyRightLabel.Name = "copyRightLabel";
             this.copyRightLabel.Size = new System.Drawing.Size(174, 16);
             this.copyRightLabel.TabIndex = 0;
-            this.copyRightLabel.Text = "Copyright © 2026 Dharshik S";
+            this.copyRightLabel.Text = "Copyright ï¿½ 2026 Dharshik S";
             // 
             // batchNumber
             // 
@@ -310,7 +311,7 @@ namespace Examist {
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e) {
-            e.Cancel = false;
+            e.Cancel = true;
         }
 
         private void JavaStartButton_Click(object sender, EventArgs e) {

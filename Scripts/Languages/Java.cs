@@ -1,55 +1,35 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-
+using System.Threading.Tasks;
 namespace Examist {
-    public class Java : ILanguage {
+    public class Java : Language {
+        private const int TesterTimeoutMilliseconds = 10000;
         private readonly LanguageConfig config;
-
-        public string Question => Load(config.QuestionPath);
-        public int Level => config.Level;
-
+        public override string Question => Load(config.QuestionPath);
+        public override int Level => config.Level;
         public Java(LanguageConfig config) {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
         }
-
-        public VerificationResult Verify(string program) {
+        public override VerificationResult Verify(string program) {
             return RunTester(program);
         }
-
-        public string GetBuggedProgram() {
+        public override string GetBuggedProgram() {
             return Load(config.BuggedPath);
         }
-
-        private string Load(string filePath) {
-            string path = Language.ResolvePath(filePath);
-            if (path == null) {
-                return string.Empty;
-            }
-
-            try {
-                return File.ReadAllText(path);
-            } catch {
-                return string.Empty;
-            }
-        }
-
         private VerificationResult RunTester(string program) {
-            string userPath = Language.ResolveOutputPath(config.UserPath);
-            string outputPath = Language.ResolveOutputPath(config.OutputPath);
+            string userPath = ResolveOutputPath(config.UserPath);
+            string outputPath = ResolveOutputPath(config.OutputPath);
             if (userPath == null) {
                 return VerificationResult.Error("Tester failed: user file path is not configured.");
             }
-
             if (outputPath == null) {
                 return VerificationResult.Error("Tester failed: output file path is not configured.");
             }
-
-            string testerScriptPath = Language.ResolvePath(config.TesterScriptPath);
+            string testerScriptPath = ResolvePath(config.TesterScriptPath);
             if (testerScriptPath == null) {
                 return VerificationResult.Error("Tester failed: tester python script was not found.");
             }
-
             try {
                 Directory.CreateDirectory(Path.GetDirectoryName(userPath));
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
@@ -57,12 +37,10 @@ namespace Examist {
             } catch (Exception ex) {
                 return VerificationResult.Error($"Tester failed: could not save your code. {ex.Message}");
             }
-
-            string testerCommand = string.IsNullOrWhiteSpace(config.TesterCommand) ?
-                Strings.PYTHON : config.TesterCommand;
-
-            string arguments = Language.BuildTesterArguments(testerScriptPath, userPath, outputPath);
-
+            string testerCommand = string.IsNullOrWhiteSpace(config.TesterCommand)
+                ? Strings.PYTHON
+                : config.TesterCommand;
+            string arguments = BuildTesterArguments(testerScriptPath, userPath, outputPath);
             try {
                 var startInfo = new ProcessStartInfo {
                     FileName = testerCommand,
@@ -73,17 +51,23 @@ namespace Examist {
                     CreateNoWindow = true,
                     WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                 };
-
                 using (var process = Process.Start(startInfo)) {
                     if (process == null) {
                         return VerificationResult.Error("Tester failed: process could not be started.");
                     }
-
-                    string output = process.StandardOutput.ReadToEnd().Trim();
-                    string error = process.StandardError.ReadToEnd().Trim();
-                    process.WaitForExit();
-
-                    switch (Language.ParseTesterResult(output, error)) {
+                    Task<string> outputTask = Task.Run(() => process.StandardOutput.ReadToEnd());
+                    Task<string> errorTask = Task.Run(() => process.StandardError.ReadToEnd());
+                    if (!process.WaitForExit(TesterTimeoutMilliseconds) ||
+                        !Task.WaitAll(new Task[] { outputTask, errorTask }, TesterTimeoutMilliseconds)) {
+                        try {
+                            process.Kill();
+                        } catch {
+                        }
+                        return VerificationResult.Error("Tester timed out.");
+                    }
+                    string output = outputTask.Result.Trim();
+                    string error = errorTask.Result.Trim();
+                    switch (ParseTesterResult(output, error)) {
                         case Strings.SUCCESS:
                             return VerificationResult.Success("Verified");
                         case Strings.INVALID:
@@ -91,7 +75,6 @@ namespace Examist {
                         case Strings.ERROR:
                             return VerificationResult.Error("Contains errors.");
                     }
-
                     string message = !string.IsNullOrWhiteSpace(error) ? error : output;
                     return VerificationResult.Error(string.IsNullOrWhiteSpace(message) ? "Verification failed." : message);
                 }

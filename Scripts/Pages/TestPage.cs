@@ -11,6 +11,8 @@ namespace Examist {
         private int statusTime = 5;
         private readonly Form previous;
 
+        private bool canClose = false;
+        private bool programsKilled = false;
 
         public TestPage(Student student, Time time, ILanguage language, Form previous) {
             InitializeComponent();
@@ -44,22 +46,21 @@ namespace Examist {
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e) {
-            e.Cancel = false;
+            e.Cancel = !canClose;
         }
 
-        void KillPrograms() {
+        static void KillPrograms() {
             string[] blocked = {
                 "chrome",
                 "msedge",
+                "firefox",
                 "code",
                 "notepad"
             };
 
             foreach (string name in blocked) {
                 foreach (Process p in Process.GetProcessesByName(name)) {
-                    try {
-                        p.Kill();
-                    } catch { }
+                    try { p.Kill(); } catch { }
                 }
             }
         }
@@ -69,15 +70,18 @@ namespace Examist {
                 return;
             }
 
-            IResult result; ;
-            result = language.Level == 2 ? new Completed(student, time.TimeSpentString) : (IResult) new Passed(student, time.TimeSpentString);
+            IResult result = language.Level == 2
+                ? new Completed(student, time.TimeSpentString)
+                : (IResult) new Passed(student, time.TimeSpentString);
 
-            var resultPage = new ResultPage(result);
+            var resultPage = new ResultPage(result, language.Level);
+            canClose = true;
             this.SwitchForm(resultPage);
         }
 
         void VerifyButton_Click(object sender, EventArgs e) {
-            string answer = codeBox.Text;
+            string answer = codeBox.Text.Trim();
+            ShowStatus($"Verifying...", Color.Black, Color.LightSteelBlue);
             if (string.IsNullOrWhiteSpace(answer)) {
                 ShowStatus("Warning: Please enter your solution before verifying", Color.Black, Color.Orange);
                 return;
@@ -93,12 +97,15 @@ namespace Examist {
                     resetButton.Disable();
                     backButton.Disable();
                     verifyButton.Disable();
+
                     ShowStatus($"Success: {verification.Message}", Color.White, Color.LimeGreen);
                     break;
+
                 case VerificationStatus.Error:
                     proceedButton.Disable();
                     ShowStatus($"Failed: {verification.Message}", Color.White, Color.LightCoral);
                     break;
+
                 case VerificationStatus.Invalid:
                     proceedButton.Disable();
                     ShowStatus($"Warning: {verification.Message}", Color.Black, Color.Orange);
@@ -106,14 +113,22 @@ namespace Examist {
             }
         }
 
-
         void Timer_Tick(object sender, EventArgs e) {
-            time.TimeLeft--;
+            if (!programsKilled) {
+                KillPrograms();
+                programsKilled = true;
+            }
+
+            if (!time.IsEnded) {
+                time.TimeLeft--;
+            }
 
             timerLabel.Text = time.TimeLeftString;
 
             if (time.IsEnded) {
                 timer.Stop();
+                canClose = true;
+
                 var resultPage = new ResultPage(new Failed(student));
                 this.SwitchForm(resultPage);
             }
@@ -123,8 +138,8 @@ namespace Examist {
             if (statusTime > 0) {
                 statusTime--;
             } else {
-                ShowStatus(string.Empty, Color.Black, Color.LightSteelBlue);
                 statusTimer.Stop();
+                programStatusLabel.Text = "";
             }
         }
 
@@ -134,6 +149,7 @@ namespace Examist {
 
         private void BackButton_Click(object sender, EventArgs e) {
             timer.Stop();
+            canClose = true;
 
             if (previous is ProgramSelectionPage selectionPage) {
                 selectionPage.ResumeTimer();
@@ -148,29 +164,13 @@ namespace Examist {
         }
 
         #region Aesthetics
-        void VerifyButton_Enter(object sender, EventArgs e) {
-            verifyButton.ForeColor = Color.White;
-        }
+        void VerifyButton_Enter(object sender, EventArgs e) => verifyButton.ForeColor = Color.White;
+        void BackButton_Enter(object sender, EventArgs e) => backButton.ForeColor = Color.White;
+        void ResetButton_Enter(object sender, EventArgs e) => resetButton.ForeColor = Color.White;
 
-        void BackButton_Enter(object sender, EventArgs e) {
-            backButton.ForeColor = Color.White;
-        }
-
-        void ResetButton_Enter(object sender, EventArgs e) {
-            resetButton.ForeColor = Color.White;
-        }
-
-        void VerifyButton_Leave(object sender, EventArgs e) {
-            verifyButton.ForeColor = Color.LimeGreen;
-        }
-
-        void BackButton_Leave(object sender, EventArgs e) {
-            backButton.ForeColor = Color.LightCoral;
-        }
-
-        void ResetButton_Leave(object sender, EventArgs e) {
-            resetButton.ForeColor = Color.SteelBlue;
-        }
+        void VerifyButton_Leave(object sender, EventArgs e) => verifyButton.ForeColor = Color.LimeGreen;
+        void BackButton_Leave(object sender, EventArgs e) => backButton.ForeColor = Color.LightCoral;
+        void ResetButton_Leave(object sender, EventArgs e) => resetButton.ForeColor = Color.SteelBlue;
         #endregion
     }
 }

@@ -7,6 +7,7 @@ namespace Examist {
         public LevelTwo() {
             TimeInMinutes = Config.Current.GetLevel(Level).TimeInMinutes;
         }
+
         public Java GetJava() {
             return new Java(Config.Current.GetLevel(Level).Languages.Java);
         }

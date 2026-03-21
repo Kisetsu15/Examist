@@ -7,6 +7,8 @@ using System.Linq;
 namespace Examist {
     public sealed class Config {
         private static readonly Lazy<Config> current = new Lazy<Config>(Load);
+        private static readonly string trustedContentRoot = Path.GetFullPath(
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".emt"));
 
         public static Config Current => current.Value;
 
@@ -58,19 +60,12 @@ namespace Examist {
         }
 
         private static string ResolveConfigPath() {
-            string[] candidates = {
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".emt", "config.json"),
-                Path.Combine(Environment.CurrentDirectory, ".emt", "config.json"),
-                Path.GetFullPath(Path.Combine(".emt", "config.json"))
-            };
-
-            foreach (string candidate in candidates) {
-                if (File.Exists(candidate)) {
-                    return candidate;
-                }
+            string candidate = Path.Combine(trustedContentRoot, "config.json");
+            if (File.Exists(candidate)) {
+                return candidate;
             }
 
-            throw new FileNotFoundException(".emt\\config.json could not be found.");
+            throw new FileNotFoundException(".emt\\config.json could not be found in " + trustedContentRoot + ".");
         }
     }
 

@@ -13,7 +13,9 @@ namespace Examist {
             TimeTaken = time;
         }
 
-        public void Execute(Form current) {
+        public void Execute(Form current, int level) {
+            Extensions.SaveResults(Student, TimeTaken, level);
+
             var nextPage = new LevelSelectionPage(Student, levelTwoUnlocked: true);
             current.SwitchForm(nextPage);
         }

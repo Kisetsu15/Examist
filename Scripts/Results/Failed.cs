@@ -14,7 +14,8 @@ namespace Examist {
             TimeTaken = string.Empty;
         }
 
-        public void Execute(Form current) {
+        public void Execute(Form current, int level) {
+            _ = level;
             current.Close();
             Environment.Exit(0);
         }

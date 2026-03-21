@@ -21,6 +21,7 @@ namespace Examist {
         private Label label1;
         private Button exitButton;
         private Label copyRightLabel;
+        private bool canClose = false;
 
         public StartPage() {
             InitializeComponent();
@@ -74,7 +75,7 @@ namespace Examist {
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.label1.ForeColor = System.Drawing.Color.DimGray;
             this.label1.Location = new System.Drawing.Point(17, 32);
             this.label1.Name = "label1";
@@ -86,8 +87,8 @@ namespace Examist {
             // 
             this.welcomeLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.welcomeLabel.AutoSize = true;
-            this.welcomeLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.welcomeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.welcomeLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.welcomeLabel.ForeColor = System.Drawing.Color.FromArgb((int) (byte) 50, (int) (byte) 50, (int) (byte) 50);
             this.welcomeLabel.Location = new System.Drawing.Point(16, 58);
             this.welcomeLabel.Name = "welcomeLabel";
             this.welcomeLabel.Size = new System.Drawing.Size(141, 39);
@@ -97,7 +98,7 @@ namespace Examist {
             // errorLabel
             // 
             this.errorLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.errorLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
             this.errorLabel.Location = new System.Drawing.Point(0, 261);
             this.errorLabel.Name = "errorLabel";
@@ -110,7 +111,7 @@ namespace Examist {
             // 
             this.nameLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.nameLabel.Location = new System.Drawing.Point(21, 193);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(48, 19);
@@ -121,7 +122,7 @@ namespace Examist {
             // 
             this.batchNumberLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.batchNumberLabel.AutoSize = true;
-            this.batchNumberLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.batchNumberLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.batchNumberLabel.Location = new System.Drawing.Point(21, 126);
             this.batchNumberLabel.Name = "batchNumberLabel";
             this.batchNumberLabel.Size = new System.Drawing.Size(102, 19);
@@ -134,7 +135,7 @@ namespace Examist {
             this.submitButton.BackColor = System.Drawing.Color.DodgerBlue;
             this.submitButton.FlatAppearance.BorderSize = 0;
             this.submitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.submitButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submitButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.submitButton.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.submitButton.Location = new System.Drawing.Point(25, 305);
             this.submitButton.Name = "submitButton";
@@ -149,8 +150,8 @@ namespace Examist {
             this.studentNameField.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.studentNameField.BackColor = System.Drawing.Color.WhiteSmoke;
             this.studentNameField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.studentNameField.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.studentNameField.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.studentNameField.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.studentNameField.ForeColor = System.Drawing.Color.FromArgb((int) (byte) 30, (int) (byte) 30, (int) (byte) 30);
             this.studentNameField.Location = new System.Drawing.Point(25, 215);
             this.studentNameField.Name = "studentNameField";
             this.studentNameField.Size = new System.Drawing.Size(300, 29);
@@ -161,8 +162,8 @@ namespace Examist {
             this.batchNumberField.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.batchNumberField.BackColor = System.Drawing.Color.WhiteSmoke;
             this.batchNumberField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.batchNumberField.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.batchNumberField.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.batchNumberField.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
+            this.batchNumberField.ForeColor = System.Drawing.Color.FromArgb((int) (byte) 30, (int) (byte) 30, (int) (byte) 30);
             this.batchNumberField.Location = new System.Drawing.Point(25, 148);
             this.batchNumberField.Name = "batchNumberField";
             this.batchNumberField.Size = new System.Drawing.Size(300, 29);
@@ -180,9 +181,9 @@ namespace Examist {
             // 
             // copyRightLabel
             // 
-            this.copyRightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyRightLabel.Anchor = (System.Windows.Forms.AnchorStyles) (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
             this.copyRightLabel.AutoSize = true;
-            this.copyRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyRightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.copyRightLabel.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.copyRightLabel.Location = new System.Drawing.Point(948, 24);
             this.copyRightLabel.Name = "copyRightLabel";
@@ -194,7 +195,7 @@ namespace Examist {
             // 
             this.examistLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.examistLabel.AutoSize = true;
-            this.examistLabel.Font = new System.Drawing.Font("Impact", 99.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.examistLabel.Font = new System.Drawing.Font("Impact", 99.75F, (System.Drawing.FontStyle) (System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline), System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.examistLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.examistLabel.Location = new System.Drawing.Point(1, 143);
             this.examistLabel.Name = "examistLabel";
@@ -204,7 +205,7 @@ namespace Examist {
             // 
             // loginHolder
             // 
-            this.loginHolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.loginHolder.BackColor = System.Drawing.Color.FromArgb((int) (byte) 232, (int) (byte) 232, (int) (byte) 232);
             this.loginHolder.Controls.Add(this.exitButton);
             this.loginHolder.Controls.Add(this.loginPanel);
             this.loginHolder.Dock = System.Windows.Forms.DockStyle.Right;
@@ -215,13 +216,13 @@ namespace Examist {
             // 
             // exitButton
             // 
-            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.exitButton.Anchor = (System.Windows.Forms.AnchorStyles) (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.exitButton.BackColor = System.Drawing.Color.FromArgb((int) (byte) 232, (int) (byte) 232, (int) (byte) 232);
             this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.LightCoral;
             this.exitButton.FlatAppearance.BorderSize = 0;
             this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exitButton.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.exitButton.ForeColor = System.Drawing.Color.DimGray;
             this.exitButton.Location = new System.Drawing.Point(543, 12);
             this.exitButton.Name = "exitButton";
@@ -235,9 +236,9 @@ namespace Examist {
             // 
             // titleHolder
             // 
-            this.titleHolder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleHolder.Anchor = (System.Windows.Forms.AnchorStyles) (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom
+            | System.Windows.Forms.AnchorStyles.Left
+            | System.Windows.Forms.AnchorStyles.Right);
             this.titleHolder.BackColor = System.Drawing.Color.DodgerBlue;
             this.titleHolder.Controls.Add(this.taglineLabel);
             this.titleHolder.Controls.Add(this.examistLabel);
@@ -250,7 +251,7 @@ namespace Examist {
             // 
             this.taglineLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.taglineLabel.AutoSize = true;
-            this.taglineLabel.Font = new System.Drawing.Font("Magneto", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taglineLabel.Font = new System.Drawing.Font("Magneto", 20.25F, (System.Drawing.FontStyle) (System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic), System.Drawing.GraphicsUnit.Point, (byte) 0);
             this.taglineLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.taglineLabel.Location = new System.Drawing.Point(22, 304);
             this.taglineLabel.Name = "taglineLabel";
@@ -260,7 +261,7 @@ namespace Examist {
             // 
             // StartPage
             // 
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BackColor = System.Drawing.Color.FromArgb((int) (byte) 224, (int) (byte) 224, (int) (byte) 224);
             this.ClientSize = new System.Drawing.Size(1134, 581);
             this.Controls.Add(this.titleHolder);
             this.Controls.Add(this.loginHolder);
@@ -320,8 +321,13 @@ namespace Examist {
             errorLabel.Show();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e) {
+            e.Cancel = !canClose;
+        }
+
 
         private void ExitButton_Click(object sender, EventArgs e) {
+            canClose = true;
             Application.Exit();
         }
 

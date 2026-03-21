@@ -13,10 +13,13 @@ namespace Examist {
         private Panel panel1;
         private Label label1;
         private readonly IResult result;
+        private int level;
 
-        public ResultPage(IResult result) {
+        public ResultPage(IResult result, int levelCleared = 0) {
             InitializeComponent();
 
+
+            this.level = levelCleared;
             this.result = result;
             resultMessageLabel.Text = result.Message;
             studentName.Text = result.Student.Name;
@@ -24,7 +27,9 @@ namespace Examist {
             timeValue.Text = result.TimeTaken;
             nextButton.Text = result.ButtonName;
 
+
             this.WindowStyle();
+            Keyboard.Stop();
         }
 
         #region Generated
@@ -124,7 +129,7 @@ namespace Examist {
             this.copyRightLabel.Name = "copyRightLabel";
             this.copyRightLabel.Size = new System.Drawing.Size(174, 16);
             this.copyRightLabel.TabIndex = 0;
-            this.copyRightLabel.Text = "Copyright © 2026 Dharshik S";
+            this.copyRightLabel.Text = "Copyright ï¿½ 2026 Dharshik S";
             // 
             // resultHolder
             // 
@@ -185,7 +190,7 @@ namespace Examist {
         }
 
         private void NextButton_Click(object sender, System.EventArgs e) {
-            result.Execute(this);
+            result.Execute(this, level);
         }
     }
 }
