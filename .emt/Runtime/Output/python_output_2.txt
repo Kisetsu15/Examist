@@ -1,0 +1,2 @@
+Even numbers: [2, 8, 14]
+Average of even numbers: 8.0
