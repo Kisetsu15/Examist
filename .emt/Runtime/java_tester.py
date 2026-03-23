@@ -1,3 +1,4 @@
+import re
 import subprocess
 import sys
 import tempfile
@@ -5,9 +6,11 @@ from pathlib import Path
 
 SUCCESS = "success"
 ERROR = "error"
+INVALID = "invalid test case"
 TIMEOUT_SECONDS = 5
 CLASS_NAME = "Main"
 JAVA_FILE = f"{CLASS_NAME}.java"
+STRING_LITERAL_PATTERN = re.compile(r'"(?:\\.|[^"\\])*"', re.DOTALL)
 
 
 def normalize(text: str) -> str:
@@ -57,6 +60,39 @@ def read_expected(expected_file: Path) -> str:
         return ERROR
 
 
+def read_source(source_file: Path) -> str:
+    try:
+        return source_file.read_text()
+    except OSError:
+        return ""
+
+
+def extract_string_literals(source: str) -> list[str]:
+    literals: list[str] = []
+    for match in STRING_LITERAL_PATTERN.finditer(source):
+        literal = match.group(0)[1:-1]
+        literal = bytes(literal, "utf-8").decode("unicode_escape")
+        normalized_value = normalize(literal)
+        if normalized_value:
+            literals.append(normalized_value)
+    return literals
+
+
+def prints_expected_output(source: str, expected_output: str) -> bool:
+    expected_lines = [line.strip() for line in expected_output.split("\n") if line.strip()]
+    if not expected_lines:
+        return False
+
+    string_literals = extract_string_literals(source)
+    if not string_literals:
+        return False
+
+    return all(
+        any(expected_line in literal for literal in string_literals)
+        for expected_line in expected_lines
+    )
+
+
 def main() -> int:
     if len(sys.argv) != 3:
         print(ERROR)
@@ -78,7 +114,11 @@ def main() -> int:
         return 1
 
     expected_output = read_expected(expected_file)
-    print(SUCCESS if actual_output == expected_output else ERROR)
+    if actual_output == expected_output:
+        source = read_source(source_file)
+        print(INVALID if prints_expected_output(source, expected_output) else SUCCESS)
+    else:
+        print(ERROR)
     return 0
 
 
