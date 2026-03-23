@@ -14,6 +14,7 @@ namespace Examist {
 
         public string TesterCommand { get; set; }
         public TesterScriptsConfig TesterScripts { get; set; }
+        public ServerConfig Server { get; set; }
         public List<LevelDefinition> Levels { get; set; }
 
         public LevelDefinition GetLevel(int levelNumber) {
@@ -72,6 +73,11 @@ namespace Examist {
     public sealed class TesterScriptsConfig {
         public string Java { get; set; }
         public string Python { get; set; }
+    }
+
+
+    public sealed class ServerConfig {
+        public string BaseUrl { get; set; }
     }
 
     public sealed class LevelDefinition {

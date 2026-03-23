@@ -4,6 +4,9 @@
     "Java": ".emt\\Runtime\\java_tester.py",
     "Python": ".emt\\Runtime\\python_tester.py"
   },
+  "Server": {
+    "BaseUrl": "http://localhost:5055/"
+  },
   "Levels": [
     {
       "Number": 1,

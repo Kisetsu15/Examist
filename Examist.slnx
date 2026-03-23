@@ -8,4 +8,5 @@
     <Platform Solution="*|x86" Project="x86" />
   </Project>
   <Project Path="Examist.Modern.csproj" Id="7f26074a-4c66-4e62-baa4-f7338d1479d0" />
+  <Project Path="Examist.Server/Examist.Server.csproj" Id="2a3556ca-a592-4fb9-86cb-9f38113220f1" />
 </Solution>
